@@ -1,0 +1,30 @@
+$white: #e6e6e6;
+$black: rgb(22, 22, 22);
+$active : #b55500;
+
+.Navbar{
+    background-color: $white !important;
+}
+a.NavItems{
+    color: $black;
+}
+.Appbar span{
+    color: $active !important;
+}
+.NavItems::after{
+    background-color: $active !important;
+}
+.Appbar{
+    background-color: $white !important;
+}
+.NavItems:after {
+    bottom: -11.5px !important;
+}
+@media only screen and (max-width: 700px){
+    .selected{
+        background-color: $active !important;
+    }
+    a.NavItems.selected{
+        color: $white;
+    }
+}

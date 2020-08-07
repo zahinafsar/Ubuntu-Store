@@ -8,7 +8,7 @@ img.card-img-top {
 .card {
     flex-direction: row !important;
     padding-left: 10px;
-    width: 190px !important;
+    width: auto !important;
     margin: 20px;
     border-radius: 0px !important;
     margin: auto;
@@ -17,8 +17,4 @@ img.card-img-top {
 }
 .btn-primary {
     font-size: 10px !important;
-}
-.card-body {
-    flex: none;
-    padding: 5px;
 }

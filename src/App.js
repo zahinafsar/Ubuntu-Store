@@ -1,17 +1,17 @@
 import React from 'react';
 import './style/main.scss';
 import Navbar from 'create-react-nav/nav/navSnack';
-import Slider from './files/components/imageSlider'
+import Home from './files/home'
+import Store from './files/store'
 
 function App() {
   const links = [
-    ['/', 'Home'],
-    ['/store', 'Store']
+    ['/', 'Home', Home],
+    ['/store', 'Store', Store]
   ]
   return (
     <div className="App">
       <Navbar logoTxt="UBUBTU STORE" triggerIcon="blackLine" routes={links} />
-      <Slider />
     </div>
   );
 }

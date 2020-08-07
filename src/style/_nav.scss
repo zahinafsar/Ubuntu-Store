@@ -1,18 +1,17 @@
-$white: #e6e6e6;
-$black: rgb(22, 22, 22);
-$active : #b55500;
+@import './variables';
 
 .Navbar{
     background-color: $white !important;
+    box-shadow: $shadow;
 }
 a.NavItems{
     color: $black;
 }
 .Appbar span{
-    color: $active !important;
+    color: $theme-c1 !important;
 }
 .NavItems::after{
-    background-color: $active !important;
+    background-color: $theme-c1 !important;
 }
 .Appbar{
     background-color: $white !important;
@@ -22,7 +21,7 @@ a.NavItems{
 }
 @media only screen and (max-width: 700px){
     .selected{
-        background-color: $active !important;
+        background-color: $theme-c1 !important;
     }
     a.NavItems.selected{
         color: $white;

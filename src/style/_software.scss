@@ -1,0 +1,24 @@
+@import './variables';
+
+img.card-img-top {
+    margin: auto;
+    width: 70px;
+    height: 70px;
+}
+.card {
+    flex-direction: row !important;
+    padding-left: 10px;
+    width: 190px !important;
+    margin: 20px;
+    border-radius: 0px !important;
+    margin: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.btn-primary {
+    font-size: 10px !important;
+}
+.card-body {
+    flex: none;
+    padding: 5px;
+}

@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
 function Appdetail(props) {
+    const data = props.details[0];
     return (
         <Modal
             {...props}
@@ -12,16 +13,18 @@ function Appdetail(props) {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Modal heading
-          </Modal.Title>
+                    {data.name}
+                </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <h4>Centered Modal</h4>
-                <p>
-                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-                    consectetur ac, vestibulum at eros.
-          </p>
+                <h6>Dating : {data.rating}</h6>
+                <h6>Download : {data.download} times</h6>
+                <h4>Commands</h4>
+                <ul>
+                    {data.command.map((a) =>
+                        <li key={a} >{a}</li>
+                    )}
+                </ul>
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide}>Close</Button>

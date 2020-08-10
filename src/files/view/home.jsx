@@ -1,6 +1,6 @@
 import React from 'react';
-import '../style/main.scss';
-import Slider from './components/imageSlider';
+import '../../style/main.scss';
+import Slider from '../components/imageSlider';
 
 function Home() {
     return (

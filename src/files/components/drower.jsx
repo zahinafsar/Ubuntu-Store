@@ -3,15 +3,21 @@ import '../../style/main.scss';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import Searchbar from './searchbar'
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
+import SearchIcon from '@material-ui/icons/Search';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
+AOS.init({
+    offset: 50,
+    duration: 800,
+});
 function Switchbar(props) {
     return (
-        <FormControlLabel
+        <FormControlLabel data-aos="fade-right"
             control={
                 <Switch
                     checked={props.state}
@@ -51,24 +57,29 @@ function Sidebar() {
     return (
         <div className="Sidebar">
             <div className="sidebar">
-                <Searchbar />
+                <div className="Searchbar">
+                    <div>
+                        <input className="search" type="text" />
+                        <SearchIcon />
+                    </div>
+                </div>
                 <FormGroup row>
                     <h5 className="filter-title">Filter</h5><br />
-                    <Switchbar event={handleChange} label="New" name="New" state={state.New} />
-                    <Switchbar event={handleChange} label="Rating" name="Rating" state={state.Rating} />
-                    <Switchbar event={handleChange} label="Free" name="Free" state={state.Free} />
-                    <Switchbar event={handleChange} label="Download" name="Download" state={state.Download} />
+                    <Switchbar data-aos="fade-right" event={handleChange} label="New" name="New" state={state.New} />
+                    <Switchbar data-aos="fade-right" event={handleChange} label="Rating" name="Rating" state={state.Rating} />
+                    <Switchbar data-aos="fade-right" event={handleChange} label="Free" name="Free" state={state.Free} />
+                    <Switchbar data-aos="fade-right" event={handleChange} label="Download" name="Download" state={state.Download} />
                 </FormGroup>
                 <h5 className="filter-title">Category</h5>
                 <FormControl>
                     <RadioGroup value={value} onChange={handleChangeradio}>
-                        <FormControlLabel value="All" control={<Radio />} label="All" />
-                        <FormControlLabel value="Development" control={<Radio />} label="Development" />
-                        <FormControlLabel value="programming" control={<Radio />} label="programming" />
-                        <FormControlLabel value="Graphics" control={<Radio />} label="Graphics" />
-                        <FormControlLabel value="Internet" control={<Radio />} label="Internet" />
-                        <FormControlLabel value="Offic" control={<Radio />} label="Offic" />
-                        <FormControlLabel value="Tools" control={<Radio />} label="Tools" />
+                        <FormControlLabel data-aos="fade-right" value="All" control={<Radio />} label="All" />
+                        <FormControlLabel data-aos="fade-right" value="Development" control={<Radio />} label="Development" />
+                        <FormControlLabel data-aos="fade-right" value="programming" control={<Radio />} label="programming" />
+                        <FormControlLabel data-aos="fade-right" value="Graphics" control={<Radio />} label="Graphics" />
+                        <FormControlLabel data-aos="fade-right" value="Internet" control={<Radio />} label="Internet" />
+                        <FormControlLabel data-aos="fade-right" value="Offic" control={<Radio />} label="Offic" />
+                        <FormControlLabel data-aos="fade-right" value="Tools" control={<Radio />} label="Tools" />
                     </RadioGroup>
                     <Button size="small" variant="contained" color="primary">
                         Apply

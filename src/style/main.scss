@@ -31,3 +31,29 @@
     display: grid;
     grid-template-columns: repeat(auto-fill ,minmax(200px,1fr))
 }
+.copytoclip{
+    display: flex;
+    h6{
+        background-color: #1d1d8e;
+        color: white;
+        width: 100%;
+        padding: 10px;
+        font-family: monospace;
+        
+    }
+    h6::before{
+            content: "$";
+            margin-right: 10px;
+        }
+    svg.MuiSvgIcon-root {
+        cursor: pointer;
+        background-color: darkgray;
+        height: 35px;
+        width: 30px;
+        padding: 5px;
+        color: white;
+    }
+}
+.modal-content{
+    margin-top: 30px;
+}

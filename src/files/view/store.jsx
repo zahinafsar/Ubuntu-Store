@@ -6,11 +6,17 @@ import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 
 function Store() {
-    const appData = useSelector(state => state.appData)
+    const filteredData = useSelector(state => state.filteredData)
+    const allData = useSelector(state => state.allData)
+    var data;
+    if (filteredData.length === 0) {
+        data = allData
+    } else {
+        data = filteredData
+    }
     const dispatch = useDispatch()
-
     useEffect(() => {
-        if (appData.length === 0) {
+        if (allData.length === 0) {
             axios.get('https://mdzahin.github.io/jsontest/ubuntustore.json')
                 .then((res) => {
                     dispatch({
@@ -26,16 +32,8 @@ function Store() {
             <div className="appsbody">
                 <div className="appsbox">
                     {
-                        appData.map(app =>
-                            <Software key={app.id} name={app.name} src={app.src} id={app.id} />
-                        )
-                    }
-                </div>
-                <h3>Recomanded</h3>
-                <div className="appsbox">
-                    {
-                        appData.map(app =>
-                            <Software key={app.id} name={app.name} src={app.src} id={app.id} />
+                        data.map((app, index) =>
+                            <Software key={index} name={app.name} src={app.src} id={app.id} />
                         )
                     }
                 </div>

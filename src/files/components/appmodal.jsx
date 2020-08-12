@@ -1,4 +1,4 @@
-import React, { useRef, createRef } from 'react';
+import React from 'react';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
@@ -8,14 +8,10 @@ import Rating from '@material-ui/lab/Rating';
 
 function Appdetail(props) {
     const data = props.details[0];
-    var refArray = []
-    data.command.forEach(() => {
-        refArray.push(createRef())
-    });
-    const ref = useRef(refArray);
+    const commands = []
     const copy = (command, index) => {
         navigator.clipboard.writeText(command)
-        ref.current[index].current.style.backgroundColor = "green"
+        commands[index].outerHTML = `<svg style="background-color:green" class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>`;
     }
     return (
         <Modal
@@ -32,7 +28,7 @@ function Appdetail(props) {
             </Modal.Header>
             <Modal.Body>
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
-                    <Rating name="half-rating-read" defaultValue={parseInt(data.rating)} precision={0.5} readOnly />
+                    <Rating name="half-rating-read" defaultValue={parseFloat(data.rating)} precision={0.5} readOnly />
                     <h6 style={{ marginTop: "4px" }}>{data.download} downloads</h6>
                 </div>
                 <br />
@@ -42,7 +38,7 @@ function Appdetail(props) {
                 {data.command.map((a, index) =>
                     <div key={index} className="copytoclip">
                         <h6>{a}</h6>
-                        <FileCopyOutlinedIcon ref={ref.current[index]} onClick={() => copy(a, index)} />
+                        <FileCopyOutlinedIcon ref={(ref) => commands[index] = ref} onClick={() => copy(a, index)} />
                     </div>
                 )}
             </Modal.Body>

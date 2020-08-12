@@ -21,7 +21,7 @@ function Software(props) {
         download: "",
         rating: "",
         description: "",
-        command: ["", "", "", "", "", "", "", ""]
+        command: []
     }]);
 
     const clickhandle = (id) => {

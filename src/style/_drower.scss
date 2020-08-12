@@ -22,7 +22,7 @@
 .filter-title{
     background-color: #007bff;
     width: 100%;
-    margin-top: 30px;
+    margin-top: 15px;
     position: relative;
     padding-top: 6px;
     padding-bottom: 6px;
@@ -34,14 +34,6 @@
 }
 .MuiFormControlLabel-root {
     margin-left: 0px !important;
-}
-button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary.MuiButton-containedSizeSmall.MuiButton-sizeSmall {
-    width: 50%;
-    display: flex;
-    margin-left: auto;
-    background-color: $theme-c1;
-    font-weight: bold;
-    margin-bottom: 20px;
 }
 .MuiPaper-root.MuiCard-root.makeStyles-root-8.MuiPaper-elevation1.MuiPaper-rounded{
     margin: 10px;

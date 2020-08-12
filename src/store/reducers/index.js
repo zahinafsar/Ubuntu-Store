@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
-import appData from './appData'
+import allData from './allData'
+import filteredData from './filteredData'
 
 const reducers = combineReducers({
-    appData
+    allData,
+    filteredData
 })
 
 export default reducers;

@@ -2,9 +2,9 @@ import React from 'react';
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import Appdetail from './appmodal'
-import store from '../../store/store'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { useSelector } from 'react-redux'
 
 AOS.init({
     offset: 50,
@@ -13,7 +13,8 @@ AOS.init({
 
 function Software(props) {
     const [modalShow, setModalShow] = React.useState(false);
-    const appData = store.getState()
+    const filteredData = useSelector(state => state.filteredData)
+    var appData = filteredData
     const [data, setData] = React.useState([{
         id: "",
         name: "",
@@ -26,7 +27,7 @@ function Software(props) {
 
     const clickhandle = (id) => {
         setModalShow(true);
-        const result = appData.appData.filter(a => a.id === id);
+        const result = appData.filter(a => a.id === id);
         setData(result)
     }
 

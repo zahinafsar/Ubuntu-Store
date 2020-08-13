@@ -6,7 +6,6 @@ import Switch from '@material-ui/core/Switch';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
-import SearchIcon from '@material-ui/icons/Search';
 import { useSelector, useDispatch } from 'react-redux'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -33,7 +32,6 @@ function Switchbar(props) {
 }
 
 function Sidebar() {
-    const [input, setInput] = useState("")
     const [notfound, setnotfound] = useState(false)
     const allData = useSelector(state => state.allData)
     const filteredData = useSelector(state => state.filteredData)
@@ -41,7 +39,8 @@ function Sidebar() {
     const handleChangeradio = (event) => {
         setState({ ...state, category: event.target.value });
     };
-    const [state, setState] = React.useState({
+    const [state, setState] = useState({
+        input: "",
         New: false,
         Download: false,
         Rating: false,
@@ -52,52 +51,64 @@ function Sidebar() {
         setState({ ...state, [event.target.name]: event.target.checked });
     };
     const inputhandle = (event) => {
-        setInput(event.target.value)
+        setState({ ...state, input: event.target.value });
     }
     useEffect(() => {
-        const data = allData.filter(a => a.category === state.category);
+        const filtered_data = allData.filter(a => a.category === state.category);
         if (state.category !== "All") {
             dispatch({
                 type: "filter_data",
-                data: data
+                data: {
+                    data: filtered_data
+                }
             })
         } else {
             dispatch({
                 type: "filter_data",
-                data: []
+                data: {
+                    data: allData
+                }
             })
+            setState({
+                ...state,
+                category: 'All'
+            });
         }
     }, [state.category])
-
-    const searchData = () => {
-        var data;
-        if (filteredData.length === 0) {
-            data = allData
-        } else {
-            data = filteredData
-        }
-        const searchedData = data.filter((single) => {
-            return single.name.toLowerCase().indexOf(input.toLowerCase()) !== -1
+    useEffect(() => {
+        setState({
+            ...state,
+            category: 'All'
+        });
+        const searchedData = allData.filter((single) => {
+            return single.name.toLowerCase().indexOf(state.input.toLowerCase()) !== -1
         })
-
         if (searchedData.length !== 0) {
             dispatch({
                 type: "filter_data",
-                data: searchedData
+                data: {
+                    data: searchedData
+                }
             })
             setnotfound(false)
         } else {
-            setnotfound(true)
+            dispatch({
+                type: "filter_data",
+                data: {
+                    data: allData
+                }
+            })
+            if (state.input !== "") {
+                setnotfound(true)
+            }
         }
-
-    }
+    }, [state.input])
     return (
         <div className="Sidebar">
             <div className="sidebar">
                 <div className="Searchbar">
                     <div>
-                        <input onChange={inputhandle} value={input} className="search" type="text" />
-                        <SearchIcon onClick={searchData} />
+                        <input onChange={inputhandle} value={state.input} className="search" type="text" />
                     </div>
                 </div>
                 {

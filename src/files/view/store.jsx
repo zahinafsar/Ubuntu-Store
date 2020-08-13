@@ -7,24 +7,20 @@ import { useSelector, useDispatch } from 'react-redux'
 
 function Store() {
     const filteredData = useSelector(state => state.filteredData)
-    const allData = useSelector(state => state.allData)
-    var data;
-    if (filteredData.length === 0) {
-        data = allData
-    } else {
-        data = filteredData
-    }
     const dispatch = useDispatch()
+
     useEffect(() => {
-        if (allData.length === 0) {
-            axios.get('https://mdzahin.github.io/jsontest/ubuntustore.json')
-                .then((res) => {
-                    dispatch({
-                        type: "set_data",
-                        data: res
-                    })
+        axios.get('https://mdzahin.github.io/jsontest/ubuntustore.json')
+            .then((res) => {
+                dispatch({
+                    type: "set_data",
+                    data: res
                 })
-        }
+                dispatch({
+                    type: "filter_data",
+                    data: res
+                })
+            })
     }, [])
     return (
         <div className="Store">
@@ -32,7 +28,7 @@ function Store() {
             <div className="appsbody">
                 <div className="appsbox">
                     {
-                        data.map((app, index) =>
+                        filteredData.map((app, index) =>
                             <Software key={index} name={app.name} src={app.src} id={app.id} />
                         )
                     }

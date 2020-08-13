@@ -15,6 +15,7 @@ AOS.init({
     offset: 50,
     duration: 800,
 });
+
 function Switchbar(props) {
     return (
         <FormControlLabel
@@ -53,67 +54,92 @@ function Sidebar() {
     const inputhandle = (event) => {
         setState({ ...state, input: event.target.value });
     }
+    // useEffect(() => {
+    //     const filtered_data = allData.filter(a => a.category === state.category);
+    //     if (state.category !== "All") {
+    //         dispatch({
+    //             type: "filter_data",
+    //             data: {
+    //                 data: filtered_data
+    //             }
+    //         })
+    //     } else {
+    //         dispatch({
+    //             type: "filter_data",
+    //             data: {
+    //                 data: allData
+    //             }
+    //         })
+    //         setState({
+    //             ...state,
+    //             category: 'All'
+    //         });
+    //     }
+    // }, [state.category])
+    // useEffect(() => {
+    //     setState({
+    //         ...state,
+    //         category: 'All'
+    //     });
+    //     const searchedData = allData.filter((single) => {
+    //         return single.name.toLowerCase().indexOf(state.input.toLowerCase()) !== -1
+    //     })
+    //     if (searchedData.length !== 0) {
+    //         dispatch({
+    //             type: "filter_data",
+    //             data: {
+    //                 data: searchedData
+    //             }
+    //         })
+    //         setnotfound(false)
+    //     } else {
+    //         dispatch({
+    //             type: "filter_data",
+    //             data: {
+    //                 data: allData
+    //             }
+    //         })
+    //         if (state.input !== "") {
+    //             setnotfound(true)
+    //         }
+    //     }
+    // }, [state.input])
     useEffect(() => {
-        const filtered_data = allData.filter(a => a.category === state.category);
+        var filtered_data = allData
         if (state.category !== "All") {
-            dispatch({
-                type: "filter_data",
-                data: {
-                    data: filtered_data
-                }
-            })
-        } else {
-            dispatch({
-                type: "filter_data",
-                data: {
-                    data: allData
-                }
-            })
-            setState({
-                ...state,
-                category: 'All'
-            });
+            const filtered_by_category = allData.filter(a => a.category === state.category);
+            filtered_data = filtered_by_category
         }
-    }, [state.category])
-    useEffect(() => {
-        setState({
-            ...state,
-            category: 'All'
-        });
-        const searchedData = allData.filter((single) => {
-            return single.name.toLowerCase().indexOf(state.input.toLowerCase()) !== -1
-        })
-        if (searchedData.length !== 0) {
-            dispatch({
-                type: "filter_data",
-                data: {
-                    data: searchedData
-                }
+        if (state.input !== "") {
+            const filtered_by_search = filtered_data.filter((single) => {
+                return single.name.toLowerCase().indexOf(state.input.toLowerCase()) !== -1
             })
+            filtered_data = filtered_by_search
+        }
+        if (filtered_data.length === 0 && allData.length !== 0) {
+            setnotfound(true)
+        } else {
             setnotfound(false)
-        } else {
-            dispatch({
-                type: "filter_data",
-                data: {
-                    data: allData
-                }
-            })
-            if (state.input !== "") {
-                setnotfound(true)
-            }
         }
-    }, [state.input])
+        dispatch({
+            type: "filter_data",
+            data: {
+                data: filtered_data
+            }
+        })
+    }, [state])
     return (
         <div className="Sidebar">
             <div className="sidebar">
+                {
+                    notfound ? <Alert data-aos="fade-left" variant="danger" onClick={() => setnotfound(false)} dismissible>No Application Found!</Alert> : ""
+                }
                 <div className="Searchbar">
                     <div>
                         <input onChange={inputhandle} value={state.input} className="search" type="text" />
                     </div>
                 </div>
-                {
-                    notfound ? <Alert variant="danger" onClick={() => setnotfound(false)} dismissible>Not Found!</Alert> : ""
-                }
+
                 <FormGroup row>
                     <h5 className="filter-title">Filter</h5><br />
                     <Switchbar event={handleChange} label="New" name="New" state={state.New} />
@@ -134,7 +160,7 @@ function Sidebar() {
                     </RadioGroup><br />
                 </FormControl>
             </div>
-        </div>
+        </div >
     );
 }
 

@@ -13,6 +13,17 @@ function Appdetail(props) {
         navigator.clipboard.writeText(command)
         commands[index].outerHTML = `<svg style="background-color:green" class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>`;
     }
+    const downloadPyFile = () => {
+        var code = `import os\n${data.command.map((a) => `os.system("${a}")\n`).join('')}`
+        var filename = `${data.name}.py`;
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/x-python;charset=utf-8,' + encodeURIComponent(code));
+        element.setAttribute('download', filename);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+    }
     return (
         <Modal
             {...props}
@@ -43,7 +54,7 @@ function Appdetail(props) {
                 )}
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
+                <Button onClick={downloadPyFile}>Download installer file</Button>
             </Modal.Footer>
         </Modal>
     );

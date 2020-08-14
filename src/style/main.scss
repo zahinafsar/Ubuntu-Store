@@ -8,7 +8,7 @@
 }
 .appsbody {
     z-index: -100000000;
-    padding-left: 230px;
+    padding-left: 235px;
     background-color: #ffffff;
     height: 100%;
     width: 100%;
@@ -56,6 +56,9 @@
 }
 .modal-content{
     margin-top: 30px;
+}
+button.btn.btn-primary {
+    font-weight: bold;
 }
 .fade.alert.alert-danger.alert-dismissible.show {
     margin: 15px;

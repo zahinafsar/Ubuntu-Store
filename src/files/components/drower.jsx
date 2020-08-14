@@ -35,17 +35,14 @@ function Switchbar(props) {
 function Sidebar() {
     const [notfound, setnotfound] = useState(false)
     const allData = useSelector(state => state.allData)
-    const filteredData = useSelector(state => state.filteredData)
     const dispatch = useDispatch()
     const handleChangeradio = (event) => {
         setState({ ...state, category: event.target.value });
     };
     const [state, setState] = useState({
         input: "",
-        New: false,
         Download: false,
         Rating: false,
-        Free: false,
         category: 'All'
     });
     const handleChange = (event) => {
@@ -54,56 +51,7 @@ function Sidebar() {
     const inputhandle = (event) => {
         setState({ ...state, input: event.target.value });
     }
-    // useEffect(() => {
-    //     const filtered_data = allData.filter(a => a.category === state.category);
-    //     if (state.category !== "All") {
-    //         dispatch({
-    //             type: "filter_data",
-    //             data: {
-    //                 data: filtered_data
-    //             }
-    //         })
-    //     } else {
-    //         dispatch({
-    //             type: "filter_data",
-    //             data: {
-    //                 data: allData
-    //             }
-    //         })
-    //         setState({
-    //             ...state,
-    //             category: 'All'
-    //         });
-    //     }
-    // }, [state.category])
-    // useEffect(() => {
-    //     setState({
-    //         ...state,
-    //         category: 'All'
-    //     });
-    //     const searchedData = allData.filter((single) => {
-    //         return single.name.toLowerCase().indexOf(state.input.toLowerCase()) !== -1
-    //     })
-    //     if (searchedData.length !== 0) {
-    //         dispatch({
-    //             type: "filter_data",
-    //             data: {
-    //                 data: searchedData
-    //             }
-    //         })
-    //         setnotfound(false)
-    //     } else {
-    //         dispatch({
-    //             type: "filter_data",
-    //             data: {
-    //                 data: allData
-    //             }
-    //         })
-    //         if (state.input !== "") {
-    //             setnotfound(true)
-    //         }
-    //     }
-    // }, [state.input])
+
     useEffect(() => {
         var filtered_data = allData
         if (state.category !== "All") {
@@ -116,6 +64,32 @@ function Sidebar() {
             })
             filtered_data = filtered_by_search
         }
+        if (state.Download) {
+            const sorted_by_download = filtered_data.sort((a, b) => {
+                if (parseInt(a.download) < parseInt(b.download)) {
+                    return 1;
+                } else if (parseInt(a.download) > parseInt(b.download)) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            });
+            filtered_data = sorted_by_download
+        }
+        console.log(filtered_data)
+        if (state.Rating) {
+            const sorted_by_Rating = filtered_data.sort((a, b) => {
+                if (parseInt(a.rating) < parseInt(b.rating)) {
+                    return 1;
+                } else if (parseInt(a.rating) > parseInt(b.rating)) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            });
+            filtered_data = sorted_by_Rating
+        }
+
         if (filtered_data.length === 0 && allData.length !== 0) {
             setnotfound(true)
         } else {
@@ -142,9 +116,7 @@ function Sidebar() {
 
                 <FormGroup row>
                     <h5 className="filter-title">Filter</h5><br />
-                    <Switchbar event={handleChange} label="New" name="New" state={state.New} />
                     <Switchbar event={handleChange} label="Rating" name="Rating" state={state.Rating} />
-                    <Switchbar event={handleChange} label="Free" name="Free" state={state.Free} />
                     <Switchbar event={handleChange} label="Download" name="Download" state={state.Download} />
                 </FormGroup>
                 <h5 className="filter-title">Category</h5>

@@ -9,6 +9,7 @@ import Rating from '@material-ui/lab/Rating';
 function Appdetail(props) {
     const data = props.details[0];
     const commands = []
+    const [bg, setbg] = React.useState("#007bff")
     const copy = (command, index) => {
         navigator.clipboard.writeText(command)
         commands[index].outerHTML = `<svg style="background-color:green" class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>`;
@@ -55,8 +56,9 @@ function Appdetail(props) {
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={downloadPyFile}>Download installer file</Button>
+                <Button style={{ backgroundColor: bg }} onClick={() => { navigator.clipboard.writeText(data.id); setbg("green") }}>Copy App ID</Button>
             </Modal.Footer>
-        </Modal>
+        </Modal >
     );
 }
 

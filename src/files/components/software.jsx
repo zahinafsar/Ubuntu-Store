@@ -41,8 +41,8 @@ function Software(props) {
             <Card.Img variant="top" src={props.src} />
             <Card.Body>
                 <h6>{props.name}</h6>
-                <Button onClick={() => clickhandle(props.id)} variant="primary">Download</Button>
             </Card.Body>
+            <Button onClick={() => clickhandle(props.id)} variant="primary">Download</Button>
         </Card>
     );
 }

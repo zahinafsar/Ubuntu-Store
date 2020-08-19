@@ -11,7 +11,7 @@ function App() {
   ]
   return (
     <div className="App">
-      <Navbar logoTxt="UBUBTU STORE" yToggle="true" triggerIcon="blackLine" routes={links} />
+      <Navbar logoImg="./image/logo/logo.png" yToggle="true" triggerIcon="blackLine" routes={links} />
     </div>
   );
 }

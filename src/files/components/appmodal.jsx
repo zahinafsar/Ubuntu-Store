@@ -56,7 +56,7 @@ function Appdetail(props) {
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={downloadPyFile}>Download installer file</Button>
-                <Button style={{ backgroundColor: bg }} onClick={() => { navigator.clipboard.writeText(data.id); setbg("green") }}>Copy App ID</Button>
+                <Button style={{ backgroundColor: bg }} onClick={() => { navigator.clipboard.writeText(`python store.py ${data.id}`); setbg("green") }}>Copy Installer Command</Button>
             </Modal.Footer>
         </Modal >
     );

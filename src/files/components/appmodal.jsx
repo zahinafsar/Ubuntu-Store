@@ -49,14 +49,16 @@ function Appdetail(props) {
                 <h5 style={{ fontWeight: "bold" }}>Commands: </h5>
                 {data.command.map((a, index) =>
                     <div key={index} className="copytoclip">
-                        <h6>{a}</h6>
+                        <div className="commandBody">
+                            <h6>{a}</h6>
+                        </div>
                         <FileCopyOutlinedIcon ref={(ref) => commands[index] = ref} onClick={() => copy(a, index)} />
                     </div>
                 )}
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={downloadPyFile}>Download installer file</Button>
-                <Button style={{ backgroundColor: bg }} onClick={() => { navigator.clipboard.writeText(`python store.py ${data.id}`); setbg("green") }}>Copy Installer Command</Button>
+                <Button style={{ backgroundColor: bg }} onClick={() => { navigator.clipboard.writeText(`cd ~ && python store.py ${data.id}`); setbg("green") }}>Copy Installer Command</Button>
             </Modal.Footer>
         </Modal >
     );

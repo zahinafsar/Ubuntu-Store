@@ -22,7 +22,7 @@ function Home() {
                 <div className="first-time">
                     <h6><u>Just For First Time</u></h6>
                     <p>Download Our Script File: <a href="./store.py" download> Download</a></p>
-                    <p>run "mv ./Downloads/store.py ../%USER_NAME%" (replace %USER_NAME% with Your PC User Name)</p>
+                    <p>run this command - "mv ./Downloads/store.py ./"</p>
                 </div>
                 <p>Go to Store Page</p>
                 <p>Choose your App and Click To Download button</p>

@@ -30,15 +30,34 @@
     display: grid;
     grid-template-columns: repeat(auto-fill ,minmax(200px,1fr))
 }
+.commandBody::-webkit-scrollbar {
+    height: 0px;
+    width: 0px;
+}
+.commandBody::-webkit-scrollbar-thumb {
+    height: 0px;
+    width: 0px;
+  }
+.commandBody::-webkit-scrollbar-track {
+    height: 0px;
+    width: 0px;
+}
 .copytoclip{
     display: flex;
-    h6{
-        background-color: #1d1d8e;
-        color: white;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    .commandBody{
         width: 100%;
-        padding: 10px;
-        font-family: monospace;
-        
+        white-space: nowrap;
+        background-color: #1d1d8e;
+        height: 35px;
+        overflow-y: hidden;
+            h6{
+                color: white;
+                width: 100%;
+                padding: 10px;
+                font-family: monospace;
+            }
     }
     h6::before{
             content: "$";

@@ -89,17 +89,37 @@ button.btn.btn-primary {
 .document{
     margin: 40px;
     text-align: center;
+    font-family: monospace;
     ul{
         list-style: none;
     }
-    .first-time{
-        background-color: $theme-c1;
-        color: white;
-        width: 100%;
+    h2,h4{
+        font-weight: 100;
+    }
+    p::before{
+        content: ">";
+        position: absolute;
+        margin-left: -20px;
+    }
+    .command{
+        margin: auto;
+        margin-bottom: 20px;
+        background-color: rgba(4, 4, 46, 0.938);
         padding: 10px;
-        margin: 10px;
-        a{
-            color: red;
-        }
+        width: 500px;
+        color: white;
+        padding-left: 25px;
+        border-radius: 6px;
+    }
+    .command::before{
+        content: "$";
+        position: absolute;
+        margin-left: -15px;
+    }
+    .first-time{
+        margin-bottom: 10px;
+    }
+    .MuiPaper-root.MuiCard-root.MuiPaper-elevation4.MuiPaper-rounded {
+        padding: 20px;
     }
 }

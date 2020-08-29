@@ -6,8 +6,8 @@ import Store from './files/view/store'
 
 function App() {
   const links = [
-    ['/', 'Home', Home],
-    ['/store', 'Store', Store]
+    ['/', 'Store', Store],
+    ['/docs', 'Documentation', Home]
   ]
   return (
     <div className="App">

@@ -110,9 +110,7 @@ function Sidebar() {
         }
         dispatch({
             type: "filter_data",
-            data: {
-                data: filtered_data
-            }
+            data: filtered_data
         })
     }, [state])
     return (
@@ -123,7 +121,7 @@ function Sidebar() {
                 }
                 <div className="Searchbar">
                     <div>
-                        <input onChange={inputhandle} value={state.input} className="search" type="text" />
+                        <input placeholder="search" onChange={inputhandle} value={state.input} className="search" type="text" />
                     </div>
                 </div>
 

@@ -5,6 +5,8 @@ import Appdetail from './appmodal'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useSelector } from 'react-redux'
+import Rating from '@material-ui/lab/Rating';
+
 
 AOS.init({
     offset: 50,
@@ -41,6 +43,7 @@ function Software(props) {
             <Card.Img variant="top" src={props.src} />
             <Card.Body>
                 <h6>{props.name}</h6>
+                <Rating className="cardrat" name="half-rating-read" defaultValue={parseFloat(props.rating)} precision={0.5} readOnly />
             </Card.Body>
             <Button onClick={() => clickhandle(props.id)} variant="primary">Download</Button>
         </Card>

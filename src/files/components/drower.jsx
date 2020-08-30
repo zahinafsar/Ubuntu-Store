@@ -89,7 +89,6 @@ function Sidebar() {
             });
             filtered_data = sorted_by_download
         }
-        console.log(filtered_data)
         if (state.Rating) {
             const sorted_by_Rating = filtered_data.slice().sort((a, b) => {
                 if (parseInt(a.rating) < parseInt(b.rating)) {
@@ -142,7 +141,7 @@ function Sidebar() {
                         <FormControlLabel value="Internet" control={<Radio />} label="Internet" />
                         <FormControlLabel value="Offic" control={<Radio />} label="Offic" />
                         <FormControlLabel value="Media" control={<Radio />} label="Media" />
-                        <FormControlLabel value="Basic" control={<Radio />} label="basic" />
+                        <FormControlLabel value="Social" control={<Radio />} label="Social" />
                         <FormControlLabel value="Tools" control={<Radio />} label="Tools" />
                     </RadioGroup><br />
                 </FormControl>

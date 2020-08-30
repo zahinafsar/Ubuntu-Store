@@ -1,20 +1,18 @@
 import React, { useEffect } from 'react';
 import '../../style/main.scss';
 import SideDrawer from '../components/drower'
-import Software from '../components/software'
+import Software from '../components/appCard'
+import Card from 'react-bootstrap/Card'
 import { useSelector, useDispatch } from 'react-redux'
 import db from '../../firebase'
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 function Store() {
     const filteredData = useSelector(state => state.filteredData)
     const dispatch = useDispatch()
-
     useEffect(() => {
         db.ref('apps').on('value', snapshot => {
-            const data = snapshot.val();
-            console.log(data)
+            const data = Object.values(snapshot.val());
             dispatch({
                 type: "set_data",
                 data: data
@@ -25,26 +23,34 @@ function Store() {
             })
         })
     }, [])
+
+    const loaderCardNum = parseInt(((window.innerHeight) * (window.innerWidth - 230)) / 36100)
+    const loaderArr = []
+    for (let x = 0; x < loaderCardNum; x++) {
+        loaderArr.push("a")
+    }
+    const Loadercard = () => {
+        return (
+            loaderArr.map((a, key) =>
+                <Card className="Loadercard" key={key} style={{ minHeight: "195px" }}>
+                </Card>
+            )
+        )
+    }
+
     return (
         <div className="Store">
             <SideDrawer />
             <div className="appsbody">
-                {
-                    filteredData.length === 0 ?
-                        <div style={{ marginLeft: "50%", marginTop: "45vh" }}>
-                            <CircularProgress color="secondary" />
-                        </div>
-                        :
-                        <div className="appsbox">
-                            {
-                                filteredData.map((app, index) =>
-                                    <Software key={index} name={app.name} src={app.src} id={app.id} />
-                                )
-                            }
-                        </div>
-                }
+                <div className="appsbox">
+                    {
+                        filteredData.length === 0 ?
+                            <Loadercard />
+                            :
+                            filteredData.map((app, index) => <Software key={index} name={app.name} rating={app.rating} src={app.src} id={app.id} />)
+                    }
+                </div>
             </div>
-
         </div>
     );
 }

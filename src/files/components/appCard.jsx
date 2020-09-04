@@ -45,7 +45,11 @@ function Software(props) {
                 <h6>{props.name}</h6>
                 <Rating className="cardrat" name="half-rating-read" defaultValue={parseFloat(props.rating)} precision={0.5} readOnly />
             </Card.Body>
-            <Button onClick={() => clickhandle(props.id)} variant="primary">Download</Button>
+            {
+                props.button === "disable" ?
+                    <Button onClick={() => clickhandle(props.id)} variant="primary" disabled>Download</Button> :
+                    <Button onClick={() => clickhandle(props.id)} variant="primary">Download</Button>
+            }
         </Card>
     );
 }

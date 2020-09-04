@@ -22,6 +22,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
+import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -56,6 +57,7 @@ const Input = (props) => {
 
 function Admin() {
     const classes = useStyles();
+    const filteredData = useSelector(state => state.filteredData)
     const [data, setData] = React.useState({
         id: "",
         name: "",
@@ -67,6 +69,7 @@ function Admin() {
         command: []
     });
     const [com, setCom] = React.useState("");
+    const [pass, setPass] = React.useState("");
     const add = () => {
         if (com !== "") {
             data.command.push(com); setCom("")
@@ -83,31 +86,35 @@ function Admin() {
         const result = data.command.filter(word => word != a);
         setData({ ...data, command: result })
     }
-    const submit = () => {
-        let appid;
-        db.ref('apps').on('value', snapshot => {
-            appid = Object.keys(snapshot.val())
-        })
-        setData({ ...data, id: appid.length + 1 })
 
-        db.ref('apps').push(data)
-        setData({
-            id: "",
-            name: "",
-            src: "",
-            download: "",
-            category: "",
-            rating: "",
-            description: "",
-            command: []
-        })
+    const submit = () => {
+        if (pass === "zahin123") {
+            setData({ ...data, id: filteredData.length + 1 })
+            db.ref('apps').push(data)
+
+            setData({
+                id: "",
+                name: "",
+                src: "",
+                download: "",
+                category: "",
+                rating: "",
+                description: "",
+                command: []
+            })
+            setPass("")
+        }
     }
     return (
         <div className="Admin">
             <Grid container>
-                <Grid item md={12} lg={6}>
+                <Grid style={{ width: '230px', margin: '0 auto' }}>
+                    <Software button="disable" name={data.name} rating={data.rating} src={data.src} id={data.id} />
+                </Grid>
+                <Grid style={{ margin: '0 auto' }}>
 
                     <Card className={classes.card}>
+                        <h4>App Details</h4>
                         <Input name="Name" value={data.name} click={(e) => setData({ ...data, name: e.target.value })} />
                         <Input name="Image Source" value={data.src} click={(e) => setData({ ...data, src: e.target.value })} />
                         <Input name="Download" value={data.download} click={(e) => setData({ ...data, download: e.target.value })} />
@@ -162,13 +169,17 @@ function Admin() {
                                 )
                             }
                         </div>
-                        <Button onClick={see} variant="contained" size="medium" color="primary" className={classes.btn}>
-                            Apply
-                </Button>
+                        <Input name="Password" value={data.Pass} click={(e) => setPass(e.target.value)} />
+                        {
+                            pass === "" ?
+                                <Button disabled onClick={submit} variant="contained" size="medium" color="primary" className={classes.btn}>
+                                    Apply
+                        </Button> :
+                                <Button onClick={submit} variant="contained" size="medium" color="primary" className={classes.btn}>
+                                    Apply
+                        </Button>
+                        }
                     </Card>
-                </Grid>
-                <Grid item md={12} lg={6}>
-                    <Software name={data.name} rating={data.rating} src={data.src} />
                 </Grid>
             </Grid>
         </div >

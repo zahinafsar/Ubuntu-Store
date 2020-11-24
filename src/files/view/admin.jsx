@@ -18,11 +18,10 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import db from '../../firebase'
 import Software from '../components/appCard'
 import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
 import { useSelector } from 'react-redux'
+import { SignalCellularNullSharp } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -59,7 +58,6 @@ function Admin() {
     const classes = useStyles();
     const filteredData = useSelector(state => state.filteredData)
     const [data, setData] = React.useState({
-        id: "",
         name: "",
         src: "",
         download: "",
@@ -78,20 +76,17 @@ function Admin() {
     const handleChange = (e) => {
         setData({ ...data, category: e.target.value })
     }
-    const see = () => {
-        console.log(data)
-    }
 
     const remove = (a) => {
-        const result = data.command.filter(word => word != a);
+        const result = data.command.filter(word => word !== a);
         setData({ ...data, command: result })
     }
 
     const submit = () => {
         if (pass === "zahin123") {
-            setData({ ...data, id: filteredData.length + 1 })
-            db.ref('apps').push(data)
-
+            const app = data
+            app.id = Date.now()
+            db.ref('apps').push(app)
             setData({
                 id: "",
                 name: "",

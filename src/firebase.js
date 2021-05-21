@@ -11,5 +11,5 @@ firebase.initializeApp({
     measurementId: "G-KC1308EVCN"
 });
 
-var db = firebase.database();
-export default db;
+export const db = firebase.database();
+export const auth = firebase.auth();

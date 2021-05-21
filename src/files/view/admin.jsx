@@ -15,7 +15,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
-import db from '../../firebase'
+import {db} from '../../firebase'
 import Software from '../components/appCard'
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -57,6 +57,8 @@ const Input = (props) => {
 function Admin() {
     const classes = useStyles();
     const filteredData = useSelector(state => state.filteredData)
+    const admin = useSelector(state => state.adminLogin)
+    console.log(admin)
     const [data, setData] = React.useState({
         name: "",
         src: "",
@@ -67,7 +69,6 @@ function Admin() {
         command: []
     });
     const [com, setCom] = React.useState("");
-    const [pass, setPass] = React.useState("");
     const add = () => {
         if (com !== "") {
             data.command.push(com); setCom("")
@@ -83,7 +84,7 @@ function Admin() {
     }
 
     const submit = () => {
-        if (pass === "zahin123") {
+        if (admin) {
             const app = data
             app.id = Date.now()
             db.ref('apps').push(app)
@@ -97,9 +98,9 @@ function Admin() {
                 description: "",
                 command: []
             })
-            setPass("")
         }
     }
+
     return (
         <div className="Admin">
             <Grid container>
@@ -164,16 +165,10 @@ function Admin() {
                                 )
                             }
                         </div>
-                        <Input name="Password" value={data.Pass} click={(e) => setPass(e.target.value)} />
-                        {
-                            pass === "" ?
-                                <Button disabled onClick={submit} variant="contained" size="medium" color="primary" className={classes.btn}>
-                                    Apply
-                        </Button> :
-                                <Button onClick={submit} variant="contained" size="medium" color="primary" className={classes.btn}>
-                                    Apply
+                        <Button disabled={!admin} onClick={submit} variant="contained" size="medium" color="primary" className={classes.btn}>
+                          Apply
                         </Button>
-                        }
+                        
                     </Card>
                 </Grid>
             </Grid>

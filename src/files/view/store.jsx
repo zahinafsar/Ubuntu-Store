@@ -4,7 +4,7 @@ import SideDrawer from '../components/drower'
 import Software from '../components/appCard'
 import Card from 'react-bootstrap/Card'
 import { useSelector, useDispatch } from 'react-redux'
-import db from '../../firebase'
+import {db} from '../../firebase'
 
 
 function Store() {

@@ -38,7 +38,7 @@ function Home() {
                 <p>Go to Store Page</p>
                 <p>Choose your App and Click To Download button</p>
                 <p>Click To "Copy Installer Command" button</p>
-                <p>Run the Copied Command to Your Terminal</p>
+                <p>Run the Copied Command to Your Terminal</p><br />
             </div>
         </div>
     );

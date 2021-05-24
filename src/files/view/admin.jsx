@@ -21,7 +21,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { useSelector } from 'react-redux'
-import { SignalCellularNullSharp } from '@material-ui/icons';
+import { navigation } from 'create-react-nav'
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -34,7 +34,8 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: "20px"
     },
     btn: {
-        width: "100%"
+        width: "100%",
+        marginBottom: 10
     }
 }));
 
@@ -55,10 +56,11 @@ const Input = (props) => {
 }
 
 function Admin() {
+    const {search} = navigation.useLocation()
+    const navigate = navigation.useHistory()
     const classes = useStyles();
-    const filteredData = useSelector(state => state.filteredData)
+    const allData = useSelector(state => state.allData)
     const admin = useSelector(state => state.adminLogin)
-    console.log(admin)
     const [data, setData] = React.useState({
         name: "",
         src: "",
@@ -85,9 +87,7 @@ function Admin() {
 
     const submit = () => {
         if (admin) {
-            const app = data
-            app.id = Date.now()
-            db.ref('apps').push(app)
+            db.ref('apps').push(data)
             setData({
                 id: "",
                 name: "",
@@ -98,8 +98,52 @@ function Admin() {
                 description: "",
                 command: []
             })
+            navigate.push("/");
         }
     }
+
+    const update = () => {
+        if (admin) {
+            const app = data
+            db.ref('apps/'+data.id).set(app)
+            setData({
+                id: "",
+                name: "",
+                src: "",
+                download: "",
+                category: "",
+                rating: "",
+                description: "",
+                command: []
+            })
+            navigate.push("/");
+        }
+    }
+
+    const removeApp = () => {
+        if (admin) {
+            db.ref('apps/'+data.id).remove()
+            setData({
+                id: "",
+                name: "",
+                src: "",
+                download: "",
+                category: "",
+                rating: "",
+                description: "",
+                command: []
+            })
+            navigate.push("/");
+        }
+    }
+
+    React.useEffect(()=>{
+        if (search) {
+            const id = search.split('?')[1].split("=")[1];
+            const result = allData.filter(a => a.id === id);
+            setData(result[0])
+        }
+    },[])
 
     return (
         <div className="Admin">
@@ -165,9 +209,20 @@ function Admin() {
                                 )
                             }
                         </div>
-                        <Button disabled={!admin} onClick={submit} variant="contained" size="medium" color="primary" className={classes.btn}>
-                          Apply
-                        </Button>
+                        {   !search ?
+                           <Button disabled={!admin} onClick={submit} variant="contained" size="medium" color="primary" className={classes.btn}>
+                              Apply
+                            </Button>
+                            :
+                            <div>
+                                <Button disabled={!admin} onClick={update} variant="contained" size="medium" color="primary" className={classes.btn}>
+                                  Update
+                                </Button>
+                                <Button disabled={!admin} onClick={removeApp} variant="contained" size="medium" className={classes.btn}>
+                                  Delete
+                                </Button>
+                            </div>
+                        }
                         
                     </Card>
                 </Grid>

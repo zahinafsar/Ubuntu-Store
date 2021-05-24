@@ -6,7 +6,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useSelector } from 'react-redux'
 import Rating from '@material-ui/lab/Rating';
-
+import { navigation } from 'create-react-nav'
 
 AOS.init({
     offset: 50,
@@ -14,6 +14,8 @@ AOS.init({
 });
 
 function Software(props) {
+    const navigate = navigation.useHistory()
+    const admin = useSelector(state => state.adminLogin)
     const [modalShow, setModalShow] = React.useState(false);
     const filteredData = useSelector(state => state.filteredData)
     var appData = filteredData
@@ -33,6 +35,10 @@ function Software(props) {
         setData(result)
     }
 
+    const edit = (id) => {
+        navigate.push(`/admin?id=${id}`);
+    }
+
     return (
         <Card data-aos="zoom-in" style={{ width: '18rem' }}>
             <Appdetail
@@ -43,14 +49,15 @@ function Software(props) {
             <Card.Img variant="top" src={props.src} />
             <Card.Body>
                 <h6>{props.name}</h6>
-                <Rating className="cardrat" name="half-rating-read" defaultValue={parseFloat(props.rating)} precision={0.5} readOnly />
+                <Rating className="cardrat" name="half-rating-read" value={parseFloat(props.rating)} precision={0.5} readOnly />
             </Card.Body>
             {
-                props.button === "disable" ?
-                    <Button onClick={() => clickhandle(props.id)} variant="primary" disabled>Download</Button> :
+                admin ?
+                    <Button onClick={() => edit(props.id)} variant="primary">Edit</Button> :
                     <Button onClick={() => clickhandle(props.id)} variant="primary">Download</Button>
             }
         </Card>
+        
     );
 }
 export default Software;

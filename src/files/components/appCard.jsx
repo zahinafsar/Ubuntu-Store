@@ -53,7 +53,7 @@ function Software(props) {
             </Card.Body>
             {
                 admin ?
-                    <Button onClick={() => edit(props.id)} variant="primary">Edit</Button> <br /> <Button onClick={() => clickhandle(props.id)} variant="primary">Download</Button>:
+                    <div> <Button onClick={() => edit(props.id)} variant="primary">Edit</Button> <br /> <Button onClick={() => clickhandle(props.id)} variant="primary">Download</Button> </div>:
                     <Button onClick={() => clickhandle(props.id)} variant="primary">Download</Button>
             }
         </Card>
